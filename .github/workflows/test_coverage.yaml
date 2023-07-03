@@ -1,0 +1,25 @@
+name: test_coverage
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/very_good_cli.yaml"
+      - "lib/**"
+      - "test/**"
+      - "pubspec.yaml"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/very_good_cli.yaml"
+      - "lib/**"
+      - "test/**"
+      - "pubspec.yaml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v2.1.0

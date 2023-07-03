@@ -1,6 +1,7 @@
 # BR Utils Dart
 
 [![pub package][pub_badge]][pub_badge_link]
+[![coverage][coverage_badge]][ci_link]
 [![License: MIT][license_badge]][license_badge_link]
 [![style: very good analysis][badge]][badge_link]
 
@@ -84,7 +85,9 @@ void main() {
 [badge_link]: https://pub.dev/packages/very_good_analysis
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_badge_link]: https://opensource.org/licenses/MIT
-[pub_badge]: https://img.shields.io/pub/v/very_good_analysis.svg
+[pub_badge]: https://img.shields.io/pub/v/br_utils.svg
 [pub_badge_link]: https://pub.dev/packages/br_utils
 [dart_install_link]: https://dart.dev/get-dart
 [analysis_options_yaml]: https://github.com/VeryGoodOpenSource/very_good_analysis/blob/main/lib/analysis_options.4.0.0.yaml
+[coverage_badge]: https://raw.githubusercontent.com/henriquenas/brutils-dart/main/coverage_badge.svg
+[ci_link]: https://github.com/henriquenas/brutils-dart/actions
