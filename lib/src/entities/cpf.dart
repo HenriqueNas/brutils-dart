@@ -30,7 +30,7 @@ class CPF implements EntitiesContract {
   /// {@macro isValidCPF}
   @override
   bool isValid([String? cpfParam]) {
-    final cpf = this.cpf ?? cpfParam;
+    final cpf = cpfParam ?? this.cpf;
     if (cpf == null || cpf.isEmpty) return false;
 
     return isValidCPF(cpf);
@@ -39,7 +39,7 @@ class CPF implements EntitiesContract {
   /// {@macro unmaskCPF}
   @override
   String? unmask([String? cpfParam]) {
-    final cpf = this.cpf ?? cpfParam;
+    final cpf = cpfParam ?? this.cpf;
     if (cpf == null || cpf.isEmpty) return null;
 
     return unmaskCPF(cpf);
@@ -59,7 +59,7 @@ class CPF implements EntitiesContract {
   static bool isValidCPF(String cpf) {
     final cpfDigits = unmaskCPF(cpf);
 
-    if (cpfDigits.length != 11) return false;
+    if (cpfDigits.isEmpty || cpfDigits.length != 11) return false;
 
     if (RegExp(r'^(\d)\1*$').hasMatch(cpfDigits)) {
       return false;
@@ -98,28 +98,36 @@ class CPF implements EntitiesContract {
   /// Generates a random CPF
   /// {@endtemplate}
   static String generateCPF() {
-    final random = Random();
-    final digits = List.generate(9, (_) => random.nextInt(9));
+    final numbers = StringBuffer();
 
-    var sum = 0;
-    for (var i = 0; i < 9; i++) {
-      sum += digits[i] * (10 - i);
+    for (var i = 0; i < 9; i += 1) {
+      numbers.write(Random().nextInt(9));
     }
-    var firstDigit = (sum * 10) % 11;
-    if (firstDigit == 10) firstDigit = 0;
 
-    sum = 0;
-    for (var i = 0; i < 10; i++) {
-      sum += digits[i] * (11 - i);
+    final verifierDigit1 = _verifierDigit(numbers.toString());
+    final verifierDigit2 = _verifierDigit('$numbers$verifierDigit1');
+
+    return '$numbers$verifierDigit1$verifierDigit2';
+  }
+
+  static int _verifierDigit(String cpf) {
+    final numbers = cpf.split('').map(int.parse).toList();
+
+    final modulus = numbers.length + 1;
+
+    final multiplied = <int>[];
+
+    for (var i = 0; i < numbers.length; i++) {
+      multiplied.add(numbers[i] * (modulus - i));
     }
-    var secondDigit = (sum * 10) % 11;
-    if (secondDigit == 10) secondDigit = 0;
 
-    return '${digits.join()}$firstDigit$secondDigit';
+    final mod = multiplied.reduce((sum, number) => sum + number) % 11;
+
+    return mod < 2 ? 0 : 11 - mod;
   }
 
   /// {@template maskCPF}
   /// Returns the mask for [cpf]
   /// {@endtemplate}
-  static String maskCPF = '###.###.###-##';
+  static const String maskCPF = '###.###.###-##';
 }
