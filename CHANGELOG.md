@@ -9,3 +9,9 @@
     - update CHANGELOG.md
     - update README.md documentation
     - add badges to README.md
+
+# 0.0.3
+  * feat:
+    - implement CNPJ entity and tests
+    - fix CPF validation algorithm
+    - fix CNPJ validation algorithm

@@ -47,14 +47,32 @@ void main() {
 import 'package:br_utils/br_utils.dart';
 
 void main() {
-  // with new CPF instance
+  // Create a new CPF instance
   final cpf = CPF('12345678909');
   print(cpf.isValid); // true
-  print(cpf); // 123.456.789-09
+  print(cpf.unmask()); // 12345678909
 
-  // with CPF static methods
+  // Use CPF static methods
   print(CPF.isValidCPF('12345678909')); // true
   print(CPF.generateCPF()); // 12345678909
+}
+```
+
+
+### CNPJ
+
+```dart
+import 'package:br_utils/br_utils.dart';
+
+void main() {
+  // Create a new CNPJ instance
+  final cnpj = CNPJ('12345678000190');
+  print(cnpj.isValid); // true
+  print(cnpj.unmask()); // 12345678000190
+
+  // Use CNPJ static methods
+  print(CNPJ.isValidCNPJ('12345678000190')); // true
+  print(CNPJ.generateCNPJ()); // 12345678000190
 }
 ```
 
